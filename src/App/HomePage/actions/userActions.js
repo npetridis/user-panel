@@ -41,19 +41,3 @@ export const getAllUsersData = () => dispatch => {
       })
     });
 };
-
-// export function getUserAndTheirFirstPost(userId) {
-//   // Again, Redux Thunk will inject dispatch here.
-//   // It also injects a second argument called getState() that lets us read the current state.
-//   return (dispatch, getState) => {
-//     // Remember I told you dispatch() can now handle thunks?
-//     return dispatch(getUser(userId)).then(() => {
-//       // Assuming this is where the fetched user got stored
-//       const fetchedUser = getState().usersById[userId]
-//       // Assuming it has a "postIDs" field:
-//       const firstPostID = fetchedUser.postIDs[0]
-//       // And we can dispatch() another thunk now!
-//       return dispatch(getPost(firstPostID))
-//     })
-//   }
-// }
