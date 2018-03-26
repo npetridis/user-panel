@@ -1,3 +1,5 @@
-import users from './HomePage/reducers/getUsersReducer';
+import usersReducer from './HomePage/reducers';
 
-export default users;
+const rootReducer = usersReducer;
+
+export { rootReducer };

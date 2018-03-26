@@ -12,10 +12,10 @@ class HomePage extends React.Component {
 
   componentDidMount() {
     const { actions } = this.props;
-    this.props.actions.getUsers()
-      .then(users => {
-        console.log(users)
-      });
+    console.log('actions', actions);
+    // actions.getUsers();
+    actions.getAllComments();
+    actions.getAllUsersData();
   }
 
   render() {
@@ -42,7 +42,7 @@ class HomePage extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  users: state.users,
+  users: state.users.users,
 });
 
 const mapDispatchToProps = dispatch => ({
