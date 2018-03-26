@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Panel from 'react-bootstrap/lib/Panel'
 
-import * as actions from './actions/actions';
+import * as actions from './actions/userActions';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -11,12 +11,15 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.actions.getUsers();
+    const { actions } = this.props;
+    this.props.actions.getUsers()
+      .then(users => {
+        console.log(users)
+      });
   }
 
   render() {
     const { users } = this.props;
-    console.log('props', this.props, users);
     return (
       <div className="container">
         <Panel>
