@@ -1,5 +1,17 @@
-import usersReducer from './HomePage/reducers';
+import { combineReducers } from 'redux';
 
-const rootReducer = usersReducer;
+import usersReducer from './HomePage/reducers';
+import { loaderReducer } from './core/Loader';
+
+console.log('reducer', usersReducer);
+
+const allReducers = Object.assign(
+  {},
+  usersReducer,
+  loaderReducer
+);
+const reducer = combineReducers(allReducers);
+
+const rootReducer = combineReducers(allReducers);
 
 export { rootReducer };

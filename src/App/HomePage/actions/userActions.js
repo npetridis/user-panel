@@ -1,8 +1,9 @@
 import * as api from '../../core/api';
 import * as actionCreators from './actionCreators';
+import { loading, loadingDone } from '../../core/Loader';
 
 export const getUsers = () => dispatch => {
-  dispatch(actionCreators.getUsers());
+  dispatch(loading());
   return api.getAllUsers()
     .then(response => response.json())
     .then(
@@ -12,7 +13,7 @@ export const getUsers = () => dispatch => {
 };
 
 export const getUserPosts = userId => dispatch => {
-  dispatch(actionCreators.getUserPosts());
+  dispatch(loading());
   return api.getUserPosts(userId)
     .then(response => response.json())
     .then(
@@ -22,7 +23,7 @@ export const getUserPosts = userId => dispatch => {
 };
 
 export const getAllComments = () => dispatch => {
-  dispatch(actionCreators.getAllComments());
+  dispatch(loading());
   return api.getAllComments()
     .then(response => response.json())
     .then(
@@ -35,7 +36,6 @@ export const getAllUsersData = () => dispatch => {
   // dispatch(getAllComments());
   return dispatch(getUsers())
     .then(({ users }) => {
-      console.log('received users', users);
       users.map(user => {
         dispatch(getUserPosts(user.id));
       })

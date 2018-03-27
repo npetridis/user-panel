@@ -15,7 +15,8 @@ const getAllCommentsReducer = (state = initialState, action) => {
             id: comment.id,
             email: comment.email,
           })),
-          'email'),
+          'email'
+        ),
       };
 
     case types.GET_ALL_COMMENTS_ERROR:
