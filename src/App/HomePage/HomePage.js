@@ -14,16 +14,28 @@ class HomePage extends React.Component {
       dataField: 'username',
       text: 'Name',
       sort: true,
+      style: {
+        width: '100px',
+        backgroundColor: 'tomato',
+      },
     }, {
       dataField: 'postsCount',
       text: 'Posts',
       sort: true,
+      style: {
+        width: '100px',
+      },
     }, {
       dataField: 'commentsPostsRatio',
       text: 'Comments/Posts',
       sort: true,
+      style: {
+        width: '100px',
+      },
     },
   ];
+
+
 
   constructor(props) {
     super(props);
@@ -74,11 +86,11 @@ class HomePage extends React.Component {
   }
 }
 
-const calcUserStatistics = state => state.users.users.map(user => ({
+const calcUserStatistics = state => state.users.users.users.map(user => ({
   id: user.id,
   username: user.username,
-  postsCount: (state.posts.userPosts[user.id] || []).length,
-  commentsPostsRatio: (state.comments.userEmailComments[user.email] || []).length,
+  postsCount: (state.users.posts.userPosts[user.id] || []).length,
+  commentsPostsRatio: (state.users.comments.userEmailComments[user.email] || []).length,
 }));
 
 const mapStateToProps = state => ({

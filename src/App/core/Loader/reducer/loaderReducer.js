@@ -3,7 +3,7 @@ import * as types from '../actions/actionTypes';
 const initialState = {
   counter: 0,
   isLoading: false,
-}
+};
 
 const loaderReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -14,7 +14,7 @@ const loaderReducer = (state = initialState, action) => {
         isLoading: !!incCounter,
       };
 
-    case types.LOADING:
+    case types.LOADING_DONE:
       const decCounter = state.counter - 1;
       return {
         counter: decCounter,
