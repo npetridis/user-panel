@@ -21,7 +21,7 @@ const App = () => (
       <Container>
         <Header/>
         <Route exact path='/' component={HomePage}/>
-        <Route path='/:userId' component={UserPage}/>
+        {/*<Route path='/:userId' component={UserPage}/>*/}
       </Container>
     </Router>
   </Provider>

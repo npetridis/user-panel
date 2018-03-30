@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Panel from 'react-bootstrap/lib/Panel';
 import { Link, withRouter } from 'react-router-dom';
 import { Card } from 'semantic-ui-react';
 
@@ -16,7 +15,7 @@ class HomePage extends React.Component {
       name: 'Name',
       field: 'username',
       sorter: sortAlpha,
-      render: record => <Link to={`user/${record.username}`}>{record.username}</Link>,
+      render: record => <Link to={`user/${record.name}`}>{record.name}</Link>,
     },
     {
       name: 'Posts',
@@ -47,7 +46,7 @@ class HomePage extends React.Component {
             Users
           </Card.Header>
           <DataTable
-            rowKey={'id'}
+            keyField='username'
             columns={HomePage.columns}
             dataSource={this.props.userStats}
           />
