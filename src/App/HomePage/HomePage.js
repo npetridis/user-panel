@@ -2,40 +2,33 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Panel from 'react-bootstrap/lib/Panel';
+import { Link, withRouter } from 'react-router-dom';
+import { Card } from 'semantic-ui-react';
 
 import * as actions from './actions/userActions';
-import Table from 'react-bootstrap/lib/Table';
 import { DataTable } from './components';
+import { sortAlpha, sortNumber } from './util';
 
 class HomePage extends React.Component {
 
   static columns = [
     {
-      dataField: 'username',
-      text: 'Name',
-      sort: true,
-      style: {
-        width: '100px',
-        backgroundColor: 'tomato',
-      },
-    }, {
-      dataField: 'postsCount',
-      text: 'Posts',
-      sort: true,
-      style: {
-        width: '100px',
-      },
-    }, {
-      dataField: 'commentsPostsRatio',
-      text: 'Comments/Posts',
-      sort: true,
-      style: {
-        width: '100px',
-      },
+      name: 'Name',
+      field: 'username',
+      sorter: sortAlpha,
+      render: record => <Link to={`user/${record.username}`}>{record.username}</Link>,
+    },
+    {
+      name: 'Posts',
+      field: 'postsCount',
+      sorter: sortNumber,
+    },
+    {
+      name: 'Comments/Posts',
+      field: 'commentsPostsRatio',
+      sorter: sortNumber,
     },
   ];
-
-
 
   constructor(props) {
     super(props);
@@ -48,40 +41,18 @@ class HomePage extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <Panel>
-          <Panel.Heading>
-            <Panel.Title componentClass="h3">Users</Panel.Title>
-          </Panel.Heading>
-          <Panel.Body>
-            <DataTable
-              keyField={'id'}
-              columns={HomePage.columns}
-              data={this.props.userStats}
-            />
-            {/*<Table responsive>*/}
-            {/*<thead>*/}
-            {/*<tr>*/}
-            {/*<th>#</th>*/}
-            {/*<th>Name</th>*/}
-            {/*<th>Posts</th>*/}
-            {/*<th>Comments/Posts</th>*/}
-            {/*</tr>*/}
-            {/*</thead>*/}
-            {/*<tbody>*/}
-            {/*{userStats.map((user, index) =>*/}
-            {/*<tr key={user.id}>*/}
-            {/*<td>{index}</td>*/}
-            {/*<td>{user.username}</td>*/}
-            {/*<td>{user.postsCount}</td>*/}
-            {/*<td>{user.commentsPostsRatio}</td>*/}
-            {/*</tr>*/}
-            {/*)}*/}
-            {/*</tbody>*/}
-            {/*</Table>*/}
-          </Panel.Body>
-        </Panel>
-      </div>
+      <Card>
+        <Card.Content>
+          <Card.Header>
+            Users
+          </Card.Header>
+          <DataTable
+            rowKey={'id'}
+            columns={HomePage.columns}
+            dataSource={this.props.userStats}
+          />
+        </Card.Content>
+      </Card>
     );
   }
 }

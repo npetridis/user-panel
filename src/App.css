@@ -26,3 +26,19 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+
+/*.table {*/
+    /*width: 100%;*/
+    /*background-color: aqua;*/
+    /*overflow-x: auto;*/
+    /*table-layout: fixed;*/
+/*}*/
+
+/*.react-bs-table-container {*/
+/*.react-bs-table table td, .react-bs-table table th {*/
+    /*white-space: pre-line;*/
+    /*text-overflow: unset;*/
+    /*overflow-wrap: break-word;*/
+/*}*/
+/*}*/
