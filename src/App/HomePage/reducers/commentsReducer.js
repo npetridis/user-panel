@@ -4,6 +4,7 @@ import { groupBy } from '../../core/util';
 const initialState = {
   comments: [],
   userEmailComments: {},
+  postComments: {},
 };
 
 const getAllCommentsReducer = (state = initialState, action) => {
@@ -16,6 +17,12 @@ const getAllCommentsReducer = (state = initialState, action) => {
             email: comment.email,
           })),
           'email'
+        ),
+        postComments: groupBy(action.comments.map(comment => ({
+            id: comment.id,
+            postId: comment.postId,
+          })),
+          'postId'
         ),
       };
 

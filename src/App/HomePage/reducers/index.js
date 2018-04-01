@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 
-import users from './getUsersReducer';
-import comments from './getAllCommentsReducer';
-import posts from './getUserPostsReducer';
+import users from './usersReducer';
+import comments from './commentsReducer';
+import posts from './postsReducer';
 
 export default combineReducers({
   users,

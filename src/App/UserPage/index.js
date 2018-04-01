@@ -1,3 +1,3 @@
-const UserPage = () => {};
+import UserPage from './UserPage';
 
 export { UserPage };

@@ -6,7 +6,7 @@ import { Card } from 'semantic-ui-react';
 
 import * as actions from './actions/userActions';
 import { DataTable } from './components';
-import { sortAlpha, sortNumber } from './util';
+import { sortAlpha, sortNumber } from '../core/util';
 
 class HomePage extends React.Component {
 
@@ -15,7 +15,7 @@ class HomePage extends React.Component {
       name: 'Name',
       field: 'username',
       sorter: sortAlpha,
-      render: record => <Link to={`user/${record.name}`}>{record.name}</Link>,
+      render: record => <Link to={`user/${record.id}`}>{record.username}</Link>,
     },
     {
       name: 'Posts',
@@ -39,16 +39,18 @@ class HomePage extends React.Component {
   }
 
   render() {
+    const { userStats, isLoading } = this.props;
+
     return (
-      <Card>
+      <Card centered fluid>
         <Card.Content>
-          <Card.Header>
-            Users
-          </Card.Header>
+          <Card.Header>All Users</Card.Header>
           <DataTable
             keyField='username'
             columns={HomePage.columns}
-            dataSource={this.props.userStats}
+            dataSource={userStats}
+            loading={isLoading}
+            sortable
           />
         </Card.Content>
       </Card>
@@ -65,6 +67,7 @@ const calcUserStatistics = state => state.users.users.users.map(user => ({
 
 const mapStateToProps = state => ({
   userStats: calcUserStatistics(state),
+  isLoading: state.loader.isLoading,
 });
 
 const mapDispatchToProps = dispatch => ({

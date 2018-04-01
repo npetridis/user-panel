@@ -3,7 +3,7 @@ import * as actionCreators from './actionCreators';
 import { loading, loadingDone } from '../../core/Loader';
 
 export const getUsers = () => dispatch => {
-  dispatch(loading());
+  // dispatch(loading());
   return api.getAllUsers()
     .then(response => response.json())
     .then(
@@ -17,8 +17,14 @@ export const getUserPosts = userId => dispatch => {
   return api.getUserPosts(userId)
     .then(response => response.json())
     .then(
-      json => dispatch(actionCreators.getUserPostsSuccess(userId, json)),
-      error => dispatch(actionCreators.getUserPostsError(userId, error)),
+      json => {
+        dispatch(loadingDone());
+        dispatch(actionCreators.getUserPostsSuccess(userId, json));
+      },
+      error => {
+        dispatch(loadingDone());
+        dispatch(actionCreators.getUserPostsError(userId, error));
+      },
     );
 };
 
@@ -27,14 +33,20 @@ export const getAllComments = () => dispatch => {
   return api.getAllComments()
     .then(response => response.json())
     .then(
-      json => dispatch(actionCreators.getAllCommentsSuccess(json)),
-      error => dispatch(actionCreators.getAllCommentsError(error)),
+      json => {
+        dispatch(loadingDone());
+        dispatch(actionCreators.getAllCommentsSuccess(json));
+      },
+      error => {
+        dispatch(loadingDone());
+        dispatch(actionCreators.getAllCommentsError(error));
+      }
     );
 };
 
 export const getAllUsersData = () => dispatch => {
   // dispatch(getAllComments());
-  return dispatch(getUsers())
+  return dispatch(getUsers()) // TODO na tsekarw pws ginetai to chain
     .then(({ users }) => {
       users.map(user => {
         dispatch(getUserPosts(user.id));
