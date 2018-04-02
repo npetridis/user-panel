@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimmer, Loader, Segment, Table} from 'semantic-ui-react';
+import { Dimmer, Loader, Segment, Table } from 'semantic-ui-react';
 
 const sort = Object.freeze({
   ASC: 'ascending',
@@ -15,11 +15,11 @@ class DataTable extends React.Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    this.setState({data: nextProps.dataSource});
+    this.setState({ data: nextProps.dataSource });
   }
 
   handleSort = (clickedColumn, sorter) => () => {
-    const {data, direction, column} = this.state;
+    const { data, direction, column } = this.state;
 
     if (column !== clickedColumn) {
       this.setState({
@@ -38,8 +38,8 @@ class DataTable extends React.Component {
   };
 
   render() {
-    const {columns, dataSource, keyField, sortable = false, loading = false} = this.props;
-    const {column, direction} = this.state;
+    const { columns, dataSource, keyField, sortable = false, loading = false } = this.props;
+    const { column, direction } = this.state;
 
     return (
       <Segment>

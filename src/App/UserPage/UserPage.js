@@ -40,7 +40,7 @@ class UserPage extends React.Component {
               label='User Details'
               onClick={this.toggleUserDetails}
             />
-            {this.state.userDetailsVisible && (<UserDetails user={user}/>)}
+            {this.state.userDetailsVisible && <UserDetails user={user}/>}
           </Grid.Column>
         </Grid>
       </Segment>
