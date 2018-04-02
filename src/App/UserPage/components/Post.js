@@ -1,14 +1,17 @@
 import React from 'react';
-import { Card, Header } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 
 import Comments from './Comments';
 
+const { Content, Description, Header } = Card;
+
 const Post = ({ title, body, comments }) =>
-  <Card>
-    <Header as='h2'>{title}</Header>
-    {/*<h2>{title}</h2>*/}
-    <p>{body}</p>
-    <Comments comments={comments}/>
+  <Card fluid>
+    <Content>
+      <Header>{title}</Header>
+      <Description>{body}</Description>
+      <Comments comments={comments}/>
+    </Content>
   </Card>;
 
 export default Post;

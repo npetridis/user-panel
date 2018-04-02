@@ -1,3 +1,7 @@
-import Post from './Post'
+import Post from './Post';
+import UserDetails from './UserDetails';
 
-export { Post };
+export {
+  Post,
+  UserDetails,
+};

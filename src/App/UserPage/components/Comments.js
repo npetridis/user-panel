@@ -1,7 +1,11 @@
 import React from 'react';
-import { Comment, Header } from 'semantic-ui-react';
+import { Comment, Header, Icon } from 'semantic-ui-react';
 
-import PostComment from './Comment';
+import PostComment from './PostComment';
+
+const style = {
+  display: 'inline-block',
+};
 
 class Comments extends React.Component {
 
@@ -13,23 +17,26 @@ class Comments extends React.Component {
 
   render() {
     const { comments } = this.props;
-    console.log('comments', comments);
+
+    const postComments = comments.map(({ id, ...rest }) => (
+      <PostComment
+        key={id}
+        {...rest}
+      />));
 
     return (
       <Comment.Group collapsed={this.state.collapsed}>
         <Header
-          as='h3'
-          dividing
+          as="h3"
+          dividing={this.state.commentsVisible}
           onClick={this.toggleCommentsVisible}
         >
-          {`${comments.length} Comments`}
+          <a>{`${comments.length || 0} Comments`}</a>
+          {!this.state.commentsVisible
+            ? <Icon style={style} link name='triangle down'/>
+            : <Icon style={style} link name='triangle up'/>}
         </Header>
-        {comments.map(({ id, ...rest }) =>
-          <PostComment
-            key={id}
-            {...rest}
-          />
-        )}
+        {this.state.commentsVisible && postComments}
       </Comment.Group>
     );
   }
