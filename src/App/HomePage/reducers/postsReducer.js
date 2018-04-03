@@ -1,23 +1,26 @@
 import * as types from '../actions/actionTypes';
+import { groupBy } from '../../core/util';
 
 const initialState = {
   posts: [],
   userPosts: {},
 };
 
-const getUserPostsReducer = (state = initialState, action) => {
-  switch(action.type) {
-    case types.GET_USER_POSTS_SUCCESS:
+const getAllPostsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case types.GET_ALL_POSTS_SUCCESS:
       return {
-        posts: [...state.posts, ...action.posts],
-        userPosts: Object.assign(
-          {},
-          state.userPosts,
-          { [action.userId]: action.posts.reduce((acc, post) => [...acc, post.id], []) }
+        posts: action.posts,
+        userPosts: groupBy(
+          action.posts.map(({ id, userId }) => ({
+            id,
+            userId,
+          })),
+          'userId',
         ),
       };
 
-    case types.GET_USER_POSTS_ERROR:
+    case types.GET_ALL_POSTS_ERROR:
       return {
         ...initialState,
         error: action.error,
@@ -28,4 +31,4 @@ const getUserPostsReducer = (state = initialState, action) => {
   }
 };
 
-export default getUserPostsReducer;
+export default getAllPostsReducer;

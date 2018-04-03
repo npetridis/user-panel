@@ -1,9 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { Grid, Header, Radio, Segment } from 'semantic-ui-react';
 
 import { Post, UserDetails } from './components';
+import { getUserSelector, getPostCommentsSelector, getUserPostsSelector } from './selectors';
+import withCachedFetching from '../core/cache/withCachedFetching';
+import { getIsLoading } from '../core/commonSelectors';
+import { Loader } from '../core/Loader';
 
 class UserPage extends React.Component {
 
@@ -14,7 +19,7 @@ class UserPage extends React.Component {
   toggleUserDetails = () => this.setState({ userDetailsVisible: !this.state.userDetailsVisible });
 
   render() {
-    const { user, userPosts, postComments } = this.props;
+    const { user, userPosts, postComments, isLoading } = this.props;
 
     return (
       <Segment>
@@ -24,6 +29,7 @@ class UserPage extends React.Component {
           stackable
           reversed='mobile vertically'
         >
+          <Loader active={isLoading}/>
           <Grid.Column width={12}>
             {userPosts.map(({ id, title, body }) => (
               <Post
@@ -38,7 +44,7 @@ class UserPage extends React.Component {
             <Radio
               toggle
               label='User Details'
-              onClick={this.toggleUserDetails}
+              onChange={this.toggleUserDetails}
             />
             {this.state.userDetailsVisible && <UserDetails user={user}/>}
           </Grid.Column>
@@ -48,26 +54,15 @@ class UserPage extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const userId = ownProps.match.params.userId;
-  const user = state.users.users.users.find(user => user.id.toString() === userId.toString()) || {};
-  const allPosts = state.users.posts.posts;
-  const userPostIds = state.users.posts.userPosts[userId];
-  const allComments = state.users.comments.comments;
-  const postCommentIds = state.users.comments.postComments;
-  console.log('data', postCommentIds, Object.entries(postCommentIds));
-  const postComments = Object.entries(postCommentIds).map(postCommentId => ({
-    [postCommentId[0]]: allComments.filter(comment => postCommentId[1].map(p => p.id).includes(comment.id)),
-  }));
+const mapStateToProps = (state, ownProps) => ({
+  user: getUserSelector(state, ownProps),
+  userPosts: getUserPostsSelector(state, ownProps),
+  postComments: getPostCommentsSelector(state, ownProps),
+  isLoading: getIsLoading(state),
+});
 
-  console.log('postComments', postComments);
-
-  return {
-    user,
-    userPosts: allPosts.filter(post => userPostIds.includes(post.id)),
-    postComments,
-  };
-};
-
-
-export default withRouter(connect(mapStateToProps)(UserPage));
+export default compose(
+  withCachedFetching,
+  withRouter,
+  connect(mapStateToProps),
+)(UserPage);

@@ -28,6 +28,22 @@ export const getUserPosts = userId => dispatch => {
     );
 };
 
+export const getAllPosts = userId => dispatch => {
+  dispatch(loading());
+  return api.getAllPosts()
+    .then(response => response.json())
+    .then(
+      json => {
+        dispatch(loadingDone());
+        dispatch(actionCreators.getAllPostsSuccess(json));
+      },
+      error => {
+        dispatch(loadingDone());
+        dispatch(actionCreators.getAllPostsError(error));
+      },
+    );
+};
+
 export const getAllComments = () => dispatch => {
   dispatch(loading());
   return api.getAllComments()

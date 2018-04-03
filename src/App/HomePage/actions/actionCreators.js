@@ -33,6 +33,17 @@ export const getUserPostsError = (userId, error) => ({
 });
 
 
+export const getAllPostsSuccess = posts => ({
+  type: types.GET_ALL_POSTS_SUCCESS,
+  posts,
+});
+
+export const getAllPostsError = error => ({
+  type: types.GET_ALL_POSTS_ERROR,
+  error,
+});
+
+
 // export const getAllComments = userId => ({
 //   type: types.GET_ALL_COMMENTS,
 //   userId,
