@@ -1,5 +1,3 @@
-import { createSelector } from 'reselect';
-
 export const getUsers = state => state.users.users || [];
 
 export const getAllPosts = state => state.posts.posts || [];

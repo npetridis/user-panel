@@ -4,11 +4,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
-import '../App.css';
 import store from './store';
+import { Header } from './Header';
 import { HomePage } from './HomePage';
 import { UserPage } from './UserPage';
-import { Header } from './Header';
 
 const App = () => (
   <Provider store={store}>

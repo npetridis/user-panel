@@ -1,6 +1,6 @@
 import * as api from '../../core/api';
 import * as actionCreators from './actionCreators';
-import { loading, loadingDone } from '../../core/Loader';
+import { loading, loadingDone } from '../../core/components/Loader';
 
 export const getUsers = () => dispatch => {
   // dispatch(loading());
@@ -60,12 +60,12 @@ export const getAllComments = () => dispatch => {
     );
 };
 
-export const getAllUsersData = () => dispatch => {
-  // dispatch(getAllComments());
-  return dispatch(getUsers()) // TODO na tsekarw pws ginetai to chain
-    .then(({ users }) => {
-      users.map(user => {
-        dispatch(getUserPosts(user.id));
-      })
-    });
-};
+// export const getAllUsersData = () => dispatch => {
+//   // dispatch(getAllComments());
+//   return dispatch(getUsers()) // TODO na tsekarw pws ginetai to chain
+//     .then(({ users }) => {
+//       users.map(user => {
+//         dispatch(getUserPosts(user.id));
+//       })
+//     });
+// };

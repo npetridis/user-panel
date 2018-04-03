@@ -8,7 +8,7 @@ import { Post, UserDetails } from './components';
 import { getUserSelector, getPostCommentsSelector, getUserPostsSelector } from './selectors';
 import withCachedFetching from '../core/cache/withCachedFetching';
 import { getIsLoading } from '../core/commonSelectors';
-import { Loader } from '../core/Loader';
+import { Loader } from '../core/components/Loader';
 
 class UserPage extends React.Component {
 

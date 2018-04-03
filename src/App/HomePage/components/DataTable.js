@@ -1,6 +1,6 @@
 import React from 'react';
 import { Segment, Table } from 'semantic-ui-react';
-import { Loader } from '../../core/Loader';
+import { Loader } from '../../core/components/Loader';
 
 const sort = Object.freeze({
   ASC: 'ascending',
