@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 
-import usersReducer from './HomePage/reducers';
-import { loaderReducer } from './core/Loader';
+import { users, posts, comments } from './HomePage/reducers';
+import { loaderReducer as loader } from './core/Loader';
 
 const rootReducer = combineReducers({
-  users: usersReducer,
-  loader: loaderReducer,
+  users,
+  posts,
+  comments,
+  loader,
 });
 
 export { rootReducer };

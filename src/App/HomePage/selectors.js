@@ -1,10 +1,8 @@
 import { createSelector } from 'reselect';
 
-import { getUsers } from '../core/commonSelectors';
+import { getUsers, getUserPosts } from '../core/commonSelectors';
 
-const getUserPosts = state => state.users.posts.userPosts || [];
-
-const getUserEmailComments = state => state.users.comments.userEmailComments || [];
+const getUserEmailComments = state => state.comments.userEmailComments || [];
 
 export const getUserStatsSelector = createSelector(
   [getUsers, getUserPosts, getUserEmailComments],

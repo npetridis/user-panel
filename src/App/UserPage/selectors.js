@@ -1,18 +1,12 @@
 import { createSelector } from 'reselect';
 
+import { getUsers, getAllPosts, getUserPosts, getAllComments } from '../core/commonSelectors';
+
 const getUserId = (_, props) => props.match.params.userId;
-
-const getUsers = state => state.users.users.users;
-
-const getAllPosts = state => state.users.posts.posts;
-
-const getUserPosts = state => state.users.posts.userPosts;
 
 // const getUserPostIds = (state, props) => state.users.posts.userPosts[props.match.params.userId];
 
-const getAllComments = state => state.users.comments.comments;
-
-const getPostCommentIds = state => state.users.comments.postComments;
+const getPostCommentIds = state => state.comments.postComments;
 
 const getUserPostIdsSelector = createSelector(
   [getUserPosts, getUserId],

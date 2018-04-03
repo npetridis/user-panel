@@ -1,10 +1,12 @@
 import { createSelector } from 'reselect';
 
-export const getUsers = state => state.users.users.users || [];
+export const getUsers = state => state.users.users || [];
 
-export const getAllPosts = state => state.users.posts.posts || [];
+export const getAllPosts = state => state.posts.posts || [];
 
-export const getAllComments = state => state.users.comments.comments || [];
+export const getUserPosts = state => state.posts.userPosts || [];
+
+export const getAllComments = state => state.comments.comments || [];
 
 export const getIsLoading = state => state.loader !== 0;
 
