@@ -1,5 +1,6 @@
 import React from 'react';
-import { Dimmer, Loader, Segment, Table } from 'semantic-ui-react';
+import { Segment, Table } from 'semantic-ui-react';
+import { Loader } from '../../core/Loader';
 
 const sort = Object.freeze({
   ASC: 'ascending',
@@ -43,13 +44,11 @@ class DataTable extends React.Component {
 
     return (
       <Segment>
-        <Dimmer active={loading}>
-          <Loader indeterminate>Loading Data</Loader>
-        </Dimmer>
+        <Loader active={loading}/>
         <Table
           basic='very'
           sortable={sortable}
-          // fixed
+          fixed
         >
           <Table.Header>
             <Table.Row>

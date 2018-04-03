@@ -1,25 +1,12 @@
 import * as types from '../actions/actionTypes';
 
-const initialState = {
-  counter: 0,
-  isLoading: false,
-};
-
-const loaderReducer = (state = initialState, action) => {
+const loaderReducer = (state = 0, action) => {
   switch (action.type) {
     case types.LOADING:
-      const incCounter = state.counter + 1;
-      return {
-        counter: incCounter,
-        isLoading: !!incCounter,
-      };
+      return state + 1;
 
     case types.LOADING_DONE:
-      const decCounter = state.counter - 1;
-      return {
-        counter: decCounter,
-        isLoading: !!decCounter,
-      };
+      return state - 1;
 
     default:
       return state;
