@@ -1,12 +1,19 @@
 import React from 'react';
-import { Comment } from 'semantic-ui-react';
+import { Comment, Icon } from 'semantic-ui-react';
 
-const { Author, Content, Metadata, Text} = Comment;
+const { Author, Avatar, Content, Metadata, Text } = Comment;
 
 const PostComment = ({ name, email, body }) => (
   <Comment>
+    <Avatar
+      as={Icon}
+      name='user'
+      color='grey'
+      bordered
+      inverted
+    />
     <Content>
-      <Author>{name}</Author>
+      <Author as='a'>{name}</Author>
       <Metadata>{email}</Metadata>
       <Text>{body}</Text>
     </Content>

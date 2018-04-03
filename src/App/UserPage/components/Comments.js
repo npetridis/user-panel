@@ -27,14 +27,14 @@ class Comments extends React.Component {
     return (
       <Comment.Group collapsed={this.state.collapsed}>
         <Header
-          as="h3"
+          as="h4"
           dividing={this.state.commentsVisible}
           onClick={this.toggleCommentsVisible}
         >
           <a>{`${comments.length || 0} Comments`}</a>
           {!this.state.commentsVisible
-            ? <Icon style={style} link name='triangle down'/>
-            : <Icon style={style} link name='triangle up'/>}
+            ? <Icon style={style} link size='small' name='triangle down'/>
+            : <Icon style={style} link size='small' name='triangle up'/>}
         </Header>
         {this.state.commentsVisible && postComments}
       </Comment.Group>
