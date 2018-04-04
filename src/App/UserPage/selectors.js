@@ -4,9 +4,7 @@ import { getUsers, getAllPosts, getUserPosts, getAllComments } from '../core/com
 
 const getUserId = (_, props) => props.match.params.userId;
 
-// const getUserPostIds = (state, props) => state.users.posts.userPosts[props.match.params.userId];
-
-const getPostCommentIds = state => state.comments.postComments;
+const getPostCommentIds = state => state.comments.postComments || {};
 
 const getUserPostIdsSelector = createSelector(
   [getUserPosts, getUserId],
@@ -24,9 +22,14 @@ export const getUserPostsSelector = createSelector(
 );
 
 export const getPostCommentsSelector = createSelector(
-  [getPostCommentIds, getAllComments],
-  (postCommentIds, allComments) => Object.entries(postCommentIds)
-    .map(postCommentId => ({
-      [postCommentId[0]]: allComments.filter(comment => postCommentId[1].includes(comment.id)),
-    }))
+  [getAllComments, getPostCommentIds],
+  (allComments, postCommentIds) => Object.keys(postCommentIds)
+    .reduce(
+      (acc, postId) => Object.assign(
+        {},
+        acc,
+        { [postId]: allComments.filter(comment => postCommentIds[postId].includes(comment.id)) },
+      ),
+      {},
+    ),
 );

@@ -36,7 +36,7 @@ class UserPage extends React.Component {
                 key={id}
                 title={title}
                 body={body}
-                comments={Object.values(postComments[id])[0]}
+                comments={postComments[id] || []}
               />
             ))}
           </Grid.Column>

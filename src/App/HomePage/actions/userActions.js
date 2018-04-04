@@ -3,12 +3,18 @@ import * as actionCreators from './actionCreators';
 import { loading, loadingDone } from '../../core/components/Loader';
 
 export const getUsers = () => dispatch => {
-  // dispatch(loading());
+  dispatch(loading());
   return api.getAllUsers()
     .then(response => response.json())
     .then(
-      json => dispatch(actionCreators.getUsersSuccess(json)),
-      error => dispatch(actionCreators.getUsersError(error)),
+      json => {
+        dispatch(actionCreators.getUsersSuccess(json));
+        dispatch(loadingDone());
+      },
+      error => {
+        dispatch(actionCreators.getUsersError(error));
+        dispatch(loadingDone());
+      },
     );
 };
 
@@ -18,12 +24,12 @@ export const getUserPosts = userId => dispatch => {
     .then(response => response.json())
     .then(
       json => {
-        dispatch(loadingDone());
         dispatch(actionCreators.getUserPostsSuccess(userId, json));
+        dispatch(loadingDone());
       },
       error => {
-        dispatch(loadingDone());
         dispatch(actionCreators.getUserPostsError(userId, error));
+        dispatch(loadingDone());
       },
     );
 };
@@ -34,12 +40,12 @@ export const getAllPosts = userId => dispatch => {
     .then(response => response.json())
     .then(
       json => {
-        dispatch(loadingDone());
         dispatch(actionCreators.getAllPostsSuccess(json));
+        dispatch(loadingDone());
       },
       error => {
-        dispatch(loadingDone());
         dispatch(actionCreators.getAllPostsError(error));
+        dispatch(loadingDone());
       },
     );
 };
@@ -50,13 +56,13 @@ export const getAllComments = () => dispatch => {
     .then(response => response.json())
     .then(
       json => {
-        dispatch(loadingDone());
         dispatch(actionCreators.getAllCommentsSuccess(json));
+        dispatch(loadingDone());
       },
       error => {
-        dispatch(loadingDone());
         dispatch(actionCreators.getAllCommentsError(error));
-      }
+        dispatch(loadingDone());
+      },
     );
 };
 

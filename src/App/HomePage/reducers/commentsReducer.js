@@ -1,5 +1,5 @@
+import { createIndexOnField } from '../../core/util';
 import * as types from '../actions/actionTypes';
-import { createIndexOnField, groupBy } from '../../core/util';
 
 const initialState = {
   comments: [],
