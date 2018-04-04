@@ -6,3 +6,13 @@ export const groupBy = (xs, key) => xs.reduce((rv, x) => {
 export const sortAlpha = (a, b) => (a < b) ? -1 : (a > b) ? 1 : 0;
 
 export const sortNumber = (a, b) => a - b;
+
+export const createIndexOnField = (dataSet, indexField, objectDataField = 'id') => Object.entries(groupBy(dataSet, indexField))
+  .reduce(
+    (acc, value) => Object.assign(
+      {},
+      acc,
+      { [value[0]]: value[1].map(obj => obj[objectDataField]) },
+    ),
+    {},
+  );

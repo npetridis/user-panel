@@ -5,13 +5,14 @@ import Comments from './Comments';
 
 const { Content, Description, Header } = Card;
 
-const Post = ({ title, body, comments }) =>
-  <Card fluid>
+const Post = ({ title, body, comments }) => (
+  <Card fluid raised>
     <Content>
       <Header>{title}</Header>
       <Description>{body}</Description>
       <Comments comments={comments}/>
     </Content>
-  </Card>;
+  </Card>
+);
 
 export default Post;

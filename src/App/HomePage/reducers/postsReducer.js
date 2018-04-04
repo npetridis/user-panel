@@ -1,5 +1,5 @@
 import * as types from '../actions/actionTypes';
-import { groupBy } from '../../core/util';
+import { createIndexOnField } from '../../core/util';
 
 const initialState = {
   posts: [],
@@ -11,13 +11,7 @@ const getAllPostsReducer = (state = initialState, action) => {
     case types.GET_ALL_POSTS_SUCCESS:
       return {
         posts: action.posts,
-        userPosts: groupBy(
-          action.posts.map(({ id, userId }) => ({
-            id,
-            userId,
-          })),
-          'userId',
-        ),
+        userPosts: createIndexOnField(action.posts, 'userId'),
       };
 
     case types.GET_ALL_POSTS_ERROR:

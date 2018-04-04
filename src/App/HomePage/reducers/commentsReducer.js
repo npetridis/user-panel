@@ -1,5 +1,5 @@
 import * as types from '../actions/actionTypes';
-import { groupBy } from '../../core/util';
+import { createIndexOnField, groupBy } from '../../core/util';
 
 const initialState = {
   comments: [],
@@ -12,18 +12,8 @@ const getAllCommentsReducer = (state = initialState, action) => {
     case types.GET_ALL_COMMENTS_SUCCESS:
       return {
         comments: action.comments,
-        userEmailComments: groupBy(action.comments.map(comment => ({
-            id: comment.id,
-            email: comment.email,
-          })),
-          'email'
-        ),
-        postComments: groupBy(action.comments.map(comment => ({
-            id: comment.id,
-            postId: comment.postId,
-          })),
-          'postId'
-        ),
+        userEmailComments: createIndexOnField(action.comments, 'email'),
+        postComments: createIndexOnField(action.comments, 'postId'),
       };
 
     case types.GET_ALL_COMMENTS_ERROR:

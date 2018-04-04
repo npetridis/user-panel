@@ -14,12 +14,4 @@ export const getUserStatsSelector = createSelector(
   }))
 );
 
-export const makeGetUserStatsSelector = () => createSelector(
-  [getUsers, getUserPosts, getUserEmailComments],
-  (users, userPosts, userEmailComments) => users.map(user => ({
-    id: user.id,
-    username: user.username,
-    postsCount: (userPosts[user.id] || []).length,
-    commentsPostsRatio: (userEmailComments[user.email] || []).length,
-  }))
-);
+export const makeGetUserStatsSelector = () => getUserStatsSelector;

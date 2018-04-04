@@ -12,7 +12,7 @@ import { UserPage } from './UserPage';
 const App = () => (
   <Provider store={store}>
     <Router>
-      <Container>
+      <Container style={{ height: '100%' }}>
         <Header/>
         <Route exact path='/' component={HomePage}/>
         <Route path='/user/:userId' component={UserPage}/>

@@ -10,7 +10,7 @@ const getPostCommentIds = state => state.comments.postComments;
 
 const getUserPostIdsSelector = createSelector(
   [getUserPosts, getUserId],
-  (userPosts, userId) => (userPosts[userId] || []).map(post => post.id)
+  (userPosts, userId) => userPosts[userId] || []
 );
 
 export const getUserSelector = createSelector(
@@ -27,6 +27,6 @@ export const getPostCommentsSelector = createSelector(
   [getPostCommentIds, getAllComments],
   (postCommentIds, allComments) => Object.entries(postCommentIds)
     .map(postCommentId => ({
-      [postCommentId[0]]: allComments.filter(comment => postCommentId[1].map(p => p.id).includes(comment.id)),
+      [postCommentId[0]]: allComments.filter(comment => postCommentId[1].includes(comment.id)),
     }))
 );

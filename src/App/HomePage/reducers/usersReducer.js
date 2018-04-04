@@ -2,6 +2,7 @@ import * as types from '../actions/actionTypes';
 
 const initialState = {
   users: [],
+  error: null,
 };
 
 const getUsersReducer = (state = initialState, action) => {
@@ -9,10 +10,12 @@ const getUsersReducer = (state = initialState, action) => {
     case types.GET_USERS_SUCCESS:
       return {
         users: action.users,
+        error: null,
       };
 
     case types.GET_USERS_ERROR:
       return {
+        users: [],
         error: action.error,
       };
 
