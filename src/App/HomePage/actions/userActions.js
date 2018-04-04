@@ -2,9 +2,17 @@ import * as api from '../../core/api';
 import * as actionCreators from './actionCreators';
 import { loading, loadingDone } from '../../core/components/Loader';
 
+const handleError = function(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
+};
+
 export const getUsers = () => dispatch => {
   dispatch(loading());
   return api.getAllUsers()
+    .then(handleError)
     .then(response => response.json())
     .then(
       json => {
@@ -12,7 +20,8 @@ export const getUsers = () => dispatch => {
         dispatch(loadingDone());
       },
       error => {
-        dispatch(actionCreators.getUsersError(error));
+        console.log(error);
+        dispatch(actionCreators.getUsersError(error.message));
         dispatch(loadingDone());
       },
     );
