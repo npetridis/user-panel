@@ -39,7 +39,7 @@ class DataTable extends React.Component {
   };
 
   render() {
-    const { columns, dataSource, keyField, sortable = false, loading = false } = this.props;
+    const { columns, dataSource, rowKey, sortable = false, loading = false } = this.props;
     const { column, direction } = this.state;
 
     return (
@@ -54,11 +54,11 @@ class DataTable extends React.Component {
             <Table.Row>
               {columns.map(col => (
                 <Table.HeaderCell
-                  key={col.field}
-                  sorted={column === col.field ? direction : null}
-                  onClick={this.handleSort(col.field, col.sorter)}
+                  key={col.dataIndex}
+                  sorted={column === col.dataIndex ? direction : null}
+                  onClick={this.handleSort(col.dataIndex, col.sorter)}
                 >
-                  {col.name}
+                  {col.title}
                 </Table.HeaderCell>
               ))}
             </Table.Row>
@@ -66,8 +66,8 @@ class DataTable extends React.Component {
 
           <Table.Body>
             {dataSource.map(record => (
-              <Table.Row key={record[keyField]}>
-                <Table.Cell>{!!columns[0].render ? columns[0].render(record) : record.name}</Table.Cell>
+              <Table.Row key={record[rowKey]}>
+                <Table.Cell>{!!columns[0].render ? columns[0].render(record[columns[0].dataIndex], record) : record.username}</Table.Cell>
                 <Table.Cell>{record.postsCount}</Table.Cell>
                 <Table.Cell>{record.commentsPostsRatio}</Table.Cell>
               </Table.Row>

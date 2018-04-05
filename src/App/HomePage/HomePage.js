@@ -12,19 +12,19 @@ import { makeGetIsLoading } from '../core/commonSelectors';
 
 const columns = [
   {
-    name: 'Name',
-    field: 'username',
+    title: 'Name',
+    dataIndex: 'username',
     sorter: sortAlpha,
-    render: record => <Link to={`user/${record.id}`}>{record.username}</Link>,
+    render: (text, record) => <Link to={`user/${record.id}`}>{text}</Link>,
   },
   {
-    name: 'Posts',
-    field: 'postsCount',
+    title: 'Posts',
+    dataIndex: 'postsCount',
     sorter: sortNumber,
   },
   {
-    name: 'Comments/Posts',
-    field: 'commentsPostsRatio',
+    title: 'Comments/Posts',
+    dataIndex: 'commentsPostsRatio',
     sorter: sortNumber,
   },
 ];
@@ -34,11 +34,12 @@ const HomePage = ({ userStats, isLoading }) => (
     <Card.Content>
       <Card.Header>All Users</Card.Header>
       <DataTable
-        keyField='username'
+        rowKey='username'
         columns={columns}
         dataSource={userStats}
         loading={isLoading}
         sortable
+        pageSize={5}
       />
     </Card.Content>
   </Card>
