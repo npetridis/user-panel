@@ -39,7 +39,6 @@ const HomePage = ({ userStats, isLoading }) => (
         dataSource={userStats}
         loading={isLoading}
         sortable
-        pageSize={5}
       />
     </Card.Content>
   </Card>

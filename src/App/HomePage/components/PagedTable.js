@@ -14,10 +14,10 @@ class PagedTable extends React.Component {
     super(props);
 
     this.state = {
-      data: [],
+      data: this.props.dataSource || [],
       direction: null,
       column: null,
-      currentPage: 1,
+      activePage: 1,
     };
   }
 
@@ -28,29 +28,32 @@ class PagedTable extends React.Component {
   handleSort = (clickedColumn, sorter) => () => {
     const { data, direction, column } = this.state;
 
-    console.log('clicked column', clickedColumn);
-    console.log('data       ', data);
-    // console.log('sorted data', data.sort((a, b) => sorter(a, b, clickedColumn)).slice());
-
     if (column !== clickedColumn) {
       this.setState({
         column: clickedColumn,
-        data: data.sort(sorter).slice(),
+        data: data.sort((a, b) => sorter(a[clickedColumn], b[clickedColumn])).slice(),
         direction: PagedTable.sort.ASC,
-        currentPage: 1,
+        activePage: 1,
       });
 
       return;
     }
-    console.log('PASSED');
+
     this.setState({
-      data: data.slice().reverse().slice(),
+      data: data.reverse().slice(),
       direction: direction === PagedTable.sort.ASC ? PagedTable.sort.DESC : PagedTable.sort.ASC,
-      currentPage: 1,
+      activePage: 1,
     });
   };
 
-  handlePageChange = (event, data) => this.setState({ currentPage: data.activePage });
+  getPageIndexes = () => {
+    const { pageSize = PagedTable.DEFAULT_PAGE_SIZE } = this.props;
+    const start = (this.state.activePage-1) * pageSize;
+    const end = start + pageSize;
+    return [start, end];
+  };
+
+  handlePageChange = (event, data) => this.setState({ activePage: data.activePage });
 
   getTableHeader() {
     return (
@@ -89,7 +92,7 @@ class PagedTable extends React.Component {
             floated="right"
             size="tiny"
             color="blue"
-            defaultActivePage={1}
+            activePage={this.state.activePage}
             onPageChange={this.handlePageChange}
             totalPages={Math.ceil(dataSource.length / pageSize)}
           />
@@ -99,7 +102,7 @@ class PagedTable extends React.Component {
   }
 
   render() {
-    const { dataSource = [], loading = false, sortable = false, pageSize = PagedTable.DEFAULT_PAGE_SIZE } = this.props;
+    const { loading = false, sortable = false } = this.props;
 
     return (
       <Segment loading={loading}>
@@ -108,7 +111,7 @@ class PagedTable extends React.Component {
           sortable={sortable}
           fixed
           celled
-          tableData={this.state.data.slice(this.state.currentPage - 1, this.state.currentPage + pageSize)}
+          tableData={this.state.data.slice(...this.getPageIndexes())}
           headerRow={this.getTableHeader()}
           renderBodyRow={this.getTableBody}
           footerRow={this.getTableFooter()}

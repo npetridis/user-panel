@@ -27,25 +27,10 @@ export const getUsers = () => dispatch => {
     );
 };
 
-export const getUserPosts = userId => dispatch => {
-  dispatch(loading());
-  return api.getUserPosts(userId)
-    .then(response => response.json())
-    .then(
-      json => {
-        dispatch(actionCreators.getUserPostsSuccess(userId, json));
-        dispatch(loadingDone());
-      },
-      error => {
-        dispatch(actionCreators.getUserPostsError(userId, error));
-        dispatch(loadingDone());
-      },
-    );
-};
-
 export const getAllPosts = userId => dispatch => {
   dispatch(loading());
   return api.getAllPosts()
+    .then(handleError)
     .then(response => response.json())
     .then(
       json => {
@@ -62,6 +47,7 @@ export const getAllPosts = userId => dispatch => {
 export const getAllComments = () => dispatch => {
   dispatch(loading());
   return api.getAllComments()
+    .then(handleError)
     .then(response => response.json())
     .then(
       json => {
@@ -74,13 +60,3 @@ export const getAllComments = () => dispatch => {
       },
     );
 };
-
-// export const getAllUsersData = () => dispatch => {
-//   // dispatch(getAllComments());
-//   return dispatch(getUsers()) // TODO na tsekarw pws ginetai to chain
-//     .then(({ users }) => {
-//       users.map(user => {
-//         dispatch(getUserPosts(user.id));
-//       })
-//     });
-// };

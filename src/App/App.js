@@ -13,7 +13,7 @@ import { ErrorMessage} from './core/components/ErrorMessage';
 const App = () => (
   <Provider store={store}>
     <Router>
-      <Container style={{ height: '100%' }}>
+      <Container>
         <Header/>
         <ErrorMessage/>
         <Route exact path='/' component={HomePage}/>

@@ -3,13 +3,7 @@ export const groupBy = (xs, key) => xs.reduce((rv, x) => {
   return rv;
 }, {});
 
-export const sortAlpha2 = (a, b, field) => (a[field] < b[field]) ? -1 : (a[field] > b[field]) ? 1 : 0;
-
-export const sortAlpha = (a, b, field) => {
-  const r = (a[field] < b[field]) ? -1 : (a[field] > b[field]) ? 1 : 0
-  console.log(a[field], b[field], r);
-  return r;
-};
+export const sortAlpha = (a, b) => (a < b) ? -1 : (a > b) ? 1 : 0;
 
 export const sortNumber = (a, b, field) => a[field] - b[field];
 
@@ -22,31 +16,3 @@ export const createIndexOnField = (dataSet, indexField, objectDataField = 'id') 
     ),
     {},
   );
-
-
-const t = [
-  {
-    name: 'What',
-    age: 34,
-  },
-  {
-    name: 'Uysd',
-    age: 5634,
-  },
-  {
-    name: 'rtdfs',
-    age: 34,
-  },
-  {
-    name: 'adam',
-    age: 134,
-  },
-  {
-    name: 'kjlsa',
-    age: 934,
-  },
-  {
-    name: 'What',
-    age: 634,
-  }
-]

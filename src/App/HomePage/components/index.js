@@ -1,3 +1,3 @@
-import DataTable from './DataTable2';
+import DataTable from './PagedTable';
 
 export { DataTable };
