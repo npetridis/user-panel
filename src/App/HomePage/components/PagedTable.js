@@ -31,7 +31,7 @@ class PagedTable extends React.Component {
     if (column !== clickedColumn) {
       this.setState({
         column: clickedColumn,
-        data: data.sort((a, b) => sorter(a[clickedColumn], b[clickedColumn])).slice(),
+        data: data.sort((a, b) => sorter(a[clickedColumn], b[clickedColumn])),
         direction: PagedTable.sort.ASC,
         activePage: 1,
       });
@@ -40,7 +40,7 @@ class PagedTable extends React.Component {
     }
 
     this.setState({
-      data: data.reverse().slice(),
+      data: data.reverse(),
       direction: direction === PagedTable.sort.ASC ? PagedTable.sort.DESC : PagedTable.sort.ASC,
       activePage: 1,
     });
